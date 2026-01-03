@@ -12,6 +12,8 @@ export type SortMode = 'default' | 'name' | 'count' | 'unknown';
 export interface WeatherData {
   date: string;
   location: string;
+  lastUpdated?: string;
+  advice?: string;
   am: {
     status: 'clear' | 'cloudy' | 'rainy' | 'snowy';
     temp: string;

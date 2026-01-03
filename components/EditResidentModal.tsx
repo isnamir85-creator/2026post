@@ -1,25 +1,35 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Resident } from '../types';
 
-interface AddResidentModalProps {
+interface EditResidentModalProps {
   isOpen: boolean;
+  resident: Resident | null;
   onClose: () => void;
-  onAdd: (unit: string, name: string) => void;
-  buildingName: string;
+  onUpdate: (updated: Resident) => void;
 }
 
-const AddResidentModal: React.FC<AddResidentModalProps> = ({ isOpen, onClose, onAdd, buildingName }) => {
+const EditResidentModal: React.FC<EditResidentModalProps> = ({ isOpen, resident, onClose, onUpdate }) => {
   const [unit, setUnit] = useState('');
   const [name, setName] = useState('');
 
-  if (!isOpen) return null;
+  useEffect(() => {
+    if (resident) {
+      setUnit(resident.unitNumber);
+      setName(resident.tenant);
+    }
+  }, [resident]);
+
+  if (!isOpen || !resident) return null;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!unit.trim() || !name.trim()) return;
-    onAdd(unit, name);
-    setUnit('');
-    setName('');
+    onUpdate({
+      ...resident,
+      unitNumber: unit,
+      tenant: name,
+    });
     onClose();
   };
 
@@ -33,8 +43,8 @@ const AddResidentModal: React.FC<AddResidentModalProps> = ({ isOpen, onClose, on
       <div className="relative w-full max-w-sm bg-stone-50 rounded-[3rem] shadow-2xl p-8 animate-in slide-in-from-bottom-10 duration-500 border-4 border-white">
         <div className="flex flex-col gap-6">
           <div className="space-y-1">
-            <h2 className="text-2xl font-ghibli font-bold text-stone-800 tracking-tight">수취인불명 정보 추가</h2>
-            <p className="text-[10px] text-emerald-500 font-bold uppercase tracking-wider">{buildingName}</p>
+            <h2 className="text-2xl font-ghibli font-bold text-stone-800 tracking-tight">정보 수정</h2>
+            <p className="text-[10px] text-red-500 font-bold uppercase tracking-wider">{resident.buildingName}</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -43,8 +53,7 @@ const AddResidentModal: React.FC<AddResidentModalProps> = ({ isOpen, onClose, on
               <input
                 autoFocus
                 type="text"
-                placeholder="예: 808호, 2층"
-                className="w-full px-5 py-4 bg-white border-2 border-stone-100 rounded-[1.5rem] focus:ring-8 focus:ring-emerald-500/10 focus:border-emerald-200 outline-none transition-all text-sm font-bold placeholder:text-stone-200"
+                className="w-full px-5 py-4 bg-white border-2 border-stone-100 rounded-[1.5rem] focus:ring-8 focus:ring-red-500/10 focus:border-red-200 outline-none transition-all text-sm font-bold placeholder:text-stone-200"
                 value={unit}
                 onChange={(e) => setUnit(e.target.value)}
               />
@@ -54,8 +63,7 @@ const AddResidentModal: React.FC<AddResidentModalProps> = ({ isOpen, onClose, on
               <label className="text-[11px] font-black text-stone-400 ml-1 uppercase">수취인 성함</label>
               <input
                 type="text"
-                placeholder="성함을 입력하세요"
-                className="w-full px-5 py-4 bg-white border-2 border-stone-100 rounded-[1.5rem] focus:ring-8 focus:ring-emerald-500/10 focus:border-emerald-200 outline-none transition-all text-sm font-bold placeholder:text-stone-200"
+                className="w-full px-5 py-4 bg-white border-2 border-stone-100 rounded-[1.5rem] focus:ring-8 focus:ring-red-500/10 focus:border-red-200 outline-none transition-all text-sm font-bold placeholder:text-stone-200"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
@@ -72,9 +80,9 @@ const AddResidentModal: React.FC<AddResidentModalProps> = ({ isOpen, onClose, on
               <button
                 type="submit"
                 disabled={!unit.trim() || !name.trim()}
-                className="flex-1 py-4 rounded-[1.5rem] text-sm font-bold text-white bg-emerald-500 shadow-xl shadow-emerald-100 hover:bg-emerald-600 disabled:opacity-30 disabled:shadow-none transition-all active:scale-95 border-b-4 border-emerald-700 font-ghibli text-lg"
+                className="flex-1 py-4 rounded-[1.5rem] text-sm font-bold text-white bg-red-600 shadow-xl shadow-red-100 hover:bg-red-700 disabled:opacity-30 disabled:shadow-none transition-all active:scale-95 border-b-4 border-red-900 font-ghibli text-lg"
               >
-                기록 저장
+                변경사항 저장
               </button>
             </div>
           </form>
@@ -84,4 +92,4 @@ const AddResidentModal: React.FC<AddResidentModalProps> = ({ isOpen, onClose, on
   );
 };
 
-export default AddResidentModal;
+export default EditResidentModal;

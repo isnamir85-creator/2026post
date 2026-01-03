@@ -4,37 +4,34 @@ import { Resident } from '../types';
 
 interface ResidentCardProps {
   resident: Resident;
+  onClick?: () => void;
 }
 
-const ResidentCard: React.FC<ResidentCardProps> = ({ resident }) => {
+const ResidentCard: React.FC<ResidentCardProps> = ({ resident, onClick }) => {
   return (
-    <div className="py-5 flex items-center justify-between group animate-in fade-in slide-in-from-left-2 duration-300 overflow-hidden">
-      <div className="flex flex-col min-w-0 flex-1">
-        <div className="flex items-center gap-2.5 mb-1.5 overflow-hidden">
-          <span className="text-base font-black text-gray-900 tracking-tight truncate">{resident.tenant}</span>
-          <div className="shrink-0 flex items-center gap-1 bg-red-50 px-2 py-0.5 rounded-md border border-red-100">
-            <div className="w-1 h-1 rounded-full bg-red-500 animate-pulse"></div>
-            <span className="text-[9px] text-red-600 font-black uppercase">수취인불명</span>
-          </div>
+    <div 
+      onClick={onClick}
+      className="py-4 px-3 flex items-center justify-between group animate-in zoom-in-95 duration-500 bg-white/50 rounded-2xl border border-stone-100 mb-2 cursor-pointer hover:bg-red-50/50 transition-colors active:scale-[0.98]"
+    >
+      <div className="flex flex-col">
+        <div className="flex items-center gap-3 mb-1">
+          <span className="font-ghibli text-xl font-bold text-stone-800">{resident.tenant}</span>
+          <span className="text-[9px] text-red-500 font-black border-2 border-red-500 px-1.5 py-0.5 rounded rotate-[-5deg] scale-90 opacity-80 uppercase">
+            수취인불명
+          </span>
         </div>
         <div className="flex items-center gap-2">
-          <span className="text-[11px] font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-lg truncate">
+          <span className="text-[10px] font-black text-white bg-red-600 px-2.5 py-1 rounded-md shadow-sm">
             {resident.unitNumber}
           </span>
-          <span className="text-[10px] text-gray-300 font-medium shrink-0">ID: #{resident.id.toString().padStart(3, '0')}</span>
+          <span className="text-[9px] text-stone-400 font-medium">배달구역: {resident.id}</span>
         </div>
       </div>
-      <button 
-        onClick={(e) => {
-          e.stopPropagation();
-          // 확인 완료 로직
-        }}
-        className="shrink-0 w-11 h-11 rounded-2xl border border-gray-100 bg-white flex items-center justify-center text-gray-200 hover:bg-indigo-600 hover:text-white hover:border-indigo-600 hover:shadow-lg hover:shadow-indigo-100 transition-all active:scale-90"
-      >
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
+      <div className="w-10 h-10 rounded-xl bg-stone-100 flex items-center justify-center text-stone-400 group-hover:bg-red-500 group-hover:text-white transition-all shadow-sm border border-stone-200">
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
         </svg>
-      </button>
+      </div>
     </div>
   );
 };

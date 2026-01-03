@@ -1,3 +1,4 @@
+
 import { Resident } from './types';
 
 export const NC_ORDER = [
@@ -26,6 +27,21 @@ export const NC_ORDER = [
   "102", 
   "LC타워"
 ];
+
+export const BUILDING_PASSWORDS: Record<string, string> = {
+  "65-16 제이지1차 (월계동 879-2)": "종1234",
+  "65-12 더리안 (월계동 879-4)": "#*6512",
+  "195 스카이하이1차 (월계동 892-17)": "#*1234",
+  "195-6 제이지 2차 (월계동 892-17)": "2580",
+  "195-8 힐링타운 (월계동 892-13)": "#2014",
+  "195-10 이스토리 (월계동 892-21)": "#2352",
+  "195-12 스타힐스 (월계동 892-12)": "#2015",
+  "60-5 무들에코 클래스 (월계동 893-1)": "1234*",
+  "65-4 AM city 1차 (월계동 884-2)": "#*1565",
+  "65-8 제이지 3차 (월계동 879-6)": "종2580",
+  "65-11 스카이하이 2차 (월계동 878-4)": "#*1234",
+  "11-10 더허브 (월계동 872-4)": "2580",
+};
 
 export const L_DATA: Resident[] = [
   // [1구역]
@@ -131,7 +147,6 @@ export const L_DATA: Resident[] = [
   { id: 96, buildingName: "106-25 트레비엔 (월계동 888-6)", unitNumber: "1318", tenant: "문동민" },
   { id: 97, buildingName: "106-25 트레비엔 (월계동 888-6)", unitNumber: "1507", tenant: "박다람" },
   { id: 98, buildingName: "106-25 트레비엔 (월계동 888-6)", unitNumber: "2009", tenant: "박민지" },
-  { id: 99, buildingName: "106-25 트레비엔 (월계동 888-6)", unitNumber: "2006", tenant: "박아현" },
   { id: 100, buildingName: "106-25 트레비엔 (월계동 888-6)", unitNumber: "1604", tenant: "박에스더" },
   { id: 101, buildingName: "106-25 트레비엔 (월계동 888-6)", unitNumber: "419", tenant: "박영순,김수아" },
   { id: 102, buildingName: "106-25 트레비엔 (월계동 888-6)", unitNumber: "410", tenant: "변희원" },
